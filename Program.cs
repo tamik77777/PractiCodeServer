@@ -22,14 +22,15 @@ builder.Services.AddCors(option =>{
 });
 
 var app = builder.Build();
+
 app.UseCors("openPolicy");
+
+app.MapGet("/", () => "Hello World!");
 
 app.MapGet("/items", (ToDoDbContext context) =>
 {
     return context.Items.ToList();
 });
-
-app.MapGet("/", () => "Hello World!");
 
 app.MapPost("/items/{name}",async(ToDoDbContext context,string name)=>{
     Item item=new Item();
